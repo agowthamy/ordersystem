@@ -2,10 +2,18 @@ var prop = require('./db_properties');
 
 var mysql = require('mysql');
 
-module.exports =
-{
-    getConnection : () =>
+const connection = mysql.createConnection(
     {
-        return mysql.createConnection(prop);
+        host: prop.host,
+        user: prop.user,
+        password: prop.password,
+        database: prop.database
     }
-}
+
+);
+
+connection.connect(error => {
+    if (error) throw error;
+    console.log("Successfully connected to the database.");
+});
+module.exports = connection;

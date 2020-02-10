@@ -1,31 +1,24 @@
-var con = require('../db_connection');
-var connection = con.getConnection();
-// connection.connect();
-if(connection.connect())
-{
-    console.log("Success")
-}
-var express = require('express');
-var router = express.Router();
+var sql = require('../db_connection');
 
-router.post('/', (req, res) => {
-    var fname = req.body.fname;
-    var lname = req.body.lname;
-    var contactnumber = req.body.contactnumber;
-    var deliveryaddress = req.body.deliveryaddress;
-    var itemcode = req.body.itemcode;
-    var itemquantity = req.body.itemquantity;
+const Order = function(order) {
+    this.FirstName = order.fname;
+    this.LastName = order.lname;
+    this.ContactNumber = order.contactnumber;
+    this.DeliveryAddress = order.deliveryaddress;
+    this.ItemCode = order.itemcode;
+    this.ItemQuantity = order.itemquantity;
+  };
+  Order.create= (newOrder, result) => {
+    sql.query("INSERT INTO ordersystemdb.order SET ?", newOrder, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+  
+      console.log("created order: ", { id: res.insertId, ...newOrder });
+      result(null, { id: res.insertId, ...newOrder });
+    });
+  };
 
-    connection.query("insert into order values (" + fname + "," + lname + "," + contactnumber + "," + deliveryaddress + "," + itemcode + "," + itemquantity + ")",
-        (err, result) => {
-            if (err) {
-                Send({ "Insert": "Fail" });
-            }
-            else {
-                Send({ "Insert": "Success" });
-            }
-        }
-    )
-});
-
-module.exports = router;
+  module.exports = Order;
