@@ -1,0 +1,30 @@
+.form-wrapper {
+    padding-left: 20%;
+    /* padding-top: 5%; */
+    width: 80%;
+}
+.form-group {
+    width: 90%;
+    margin-left: 32px;
+}
+form {
+    background-color: black;
+    opacity: 0.6;
+    height: auto;
+}
+h3 {
+    text-align: center;
+    color: white;
+}
+label {
+    color: white;
+}
+.btn-primary {
+    color: #fff;
+    font-weight: bold;
+    background-color: red !important;
+    border-color: white !important;
+    width: 40%;
+    margin-left: 204px;
+    margin-bottom: 15px;
+}
